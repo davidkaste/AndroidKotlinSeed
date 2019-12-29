@@ -4,7 +4,6 @@ import android.content.Context
 import com.example.androidkotlinseed.api.CallError
 import com.example.androidkotlinseed.domain.SuperHero
 import com.example.androidkotlinseed.repository.DataStrategy
-import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
 import java.lang.ref.WeakReference
 
@@ -34,20 +33,15 @@ class FetchHeroesUseCase(private val dataStrategy: DataStrategy) : IFetchHeroesU
     }
 
     override fun onQueryHeroesFailed(callError: CallError) {
-        this.notifyFailed(contextRef?.get()?.getString(callError.msgStringRes) ?: "Connection failed")
+        this.notifyFailed(contextRef?.get()?.getString(callError.msgStringRes)
+                          ?: "Connection failed")
     }
 
     private fun notifyOk(superHeroes: List<SuperHero>) {
-        listener?.let {
-            disposable = Flowable.just(it)
-                .subscribe { listener -> listener.onFetchHeroesOk(superHeroes) }
-        }
+        listener?.onFetchHeroesOk(superHeroes)
     }
 
     private fun notifyFailed(reason: String) {
-        listener?.let {
-            disposable = Flowable.just(it)
-                .subscribe { listener -> listener.onFetchHeroesFailed(reason) }
-        }
+        listener?.onFetchHeroesFailed(reason)
     }
 }

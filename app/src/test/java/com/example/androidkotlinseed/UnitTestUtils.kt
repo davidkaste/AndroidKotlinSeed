@@ -8,7 +8,7 @@ import com.example.androidkotlinseed.injection.DaggerUnitTestApplicationComponen
 import com.example.androidkotlinseed.injection.UnitTestApplicationComponent
 import com.example.androidkotlinseed.injection.UnitTestApplicationModule
 import com.example.androidkotlinseed.injection.UnitTestUseCaseModule
-import com.example.androidkotlinseed.repository.DataMock.Companion.mockHeroesJson
+import com.example.androidkotlinseed.repository.DataWebService.Companion.mockHeroesJson
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito
 import org.powermock.api.mockito.PowerMockito
@@ -28,9 +28,9 @@ class UnitTestUtils {
 
     fun createTestApplicationComponent(): UnitTestApplicationComponent {
         return DaggerUnitTestApplicationComponent.builder()
-            .applicationModule(UnitTestApplicationModule(getMockApp()))
-            .useCaseModule(UnitTestUseCaseModule())
-            .build()
+                .applicationModule(UnitTestApplicationModule(getMockApp()))
+                .useCaseModule(UnitTestUseCaseModule())
+                .build()
     }
 
     fun createLifecycleOwner(): LifecycleRegistry {
@@ -41,8 +41,6 @@ class UnitTestUtils {
     val heroListWrapper = HeroListWrapper.fromJson(mockHeroesJson)
 }
 
-
-
 /**
  * Creates a [KArgumentCaptor] for given type.
  */
@@ -51,8 +49,8 @@ inline fun <reified T : Any> argumentCaptor(): KArgumentCaptor<T> {
 }
 
 class KArgumentCaptor<out T : Any?>(
-    private val captor: ArgumentCaptor<T>,
-    private val tClass: KClass<*>) {
+        private val captor: ArgumentCaptor<T>,
+        private val tClass: KClass<*>) {
 
     /**
      * The first captured value of the argument.

@@ -13,11 +13,12 @@ class DataSourceProvider {
         return buildFromString(BuildConfig.DATA_SOURCE)
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun buildFromString(source: String): DataSource {
         return when (source) {
-            WS_DATA_ORIGIN -> DataSource.DATA_WS
+            WS_DATA_ORIGIN   -> DataSource.DATA_WS
             MOCK_DATA_ORIGIN -> DataSource.DATA_MOCK
-            else -> {
+            else             -> {
                 Log.d(TAG, "Data source specified not found, using data mock...")
                 DataSource.DATA_MOCK
             }

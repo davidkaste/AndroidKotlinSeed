@@ -1,7 +1,7 @@
 package com.example.androidkotlinseed.repository.mock
 
 import com.example.androidkotlinseed.api.MarvelApi
-import com.example.androidkotlinseed.repository.DataMock.Companion.mockHeroesJson
+import com.example.androidkotlinseed.repository.DataWebService.Companion.mockHeroesJson
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.RecordedRequest
@@ -13,9 +13,10 @@ class MockServerDispatcher {
      */
     internal inner class RequestDispatcher : Dispatcher() {
         override fun dispatch(request: RecordedRequest): MockResponse {
-            return when {
-                request.path == MarvelApi.GET_HEROES_PATH -> MockResponse().setResponseCode(HTTP_OK).setBody(mockHeroesJson)
-                else -> MockResponse().setResponseCode(404)
+            Thread.sleep(2000)
+            return when (request.path) {
+                MarvelApi.GET_HEROES_PATH -> MockResponse().setResponseCode(HTTP_OK).setBody(mockHeroesJson)
+                else                      -> MockResponse().setResponseCode(404)
             }
         }
     }

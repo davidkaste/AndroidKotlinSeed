@@ -7,7 +7,6 @@ import com.example.androidkotlinseed.persistence.AppDataBase
 import com.example.androidkotlinseed.persistence.SuperHeroDao
 import com.example.androidkotlinseed.repository.CacheManager
 import com.example.androidkotlinseed.repository.DataFactory
-import com.example.androidkotlinseed.repository.DataSource
 import com.example.androidkotlinseed.repository.DataStrategy
 import com.example.androidkotlinseed.utils.AppRxSchedulers
 import org.mockito.Mockito.mock
@@ -22,9 +21,9 @@ class UnitTestUseCaseModule : UseCaseModule() {
 
     override fun getRetrofit(): Retrofit.Builder {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     }
 
     override fun getAppDataBase(application: Application): AppDataBase {
@@ -39,8 +38,7 @@ class UnitTestUseCaseModule : UseCaseModule() {
         return mock(CacheManager::class.java)
     }
 
-    override fun getDataStrategy(dataSource: DataSource,
-                                 marvelApi: MarvelApi,
+    override fun getDataStrategy(marvelApi: MarvelApi,
                                  dataFactory: DataFactory,
                                  cacheManager: CacheManager,
                                  appRxSchedulers: AppRxSchedulers): DataStrategy {
